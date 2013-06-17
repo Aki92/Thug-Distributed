@@ -1,6 +1,19 @@
 import threading
+import argparse
 import pika
 import uuid
+
+
+''' Parsing the Command Line Arguments using ArgParse Module '''
+def parsing():
+    # Description of Command Line arguments
+    parser = argparse.ArgumentParser(description='Takes Tasks to be Distributed among Thug Instances.')
+    # Optional Argument for Tasks
+    parser.add_argument('tasks', metavar='T', default='1', type=int, nargs='*',
+    					help='Tasks to distribute (default value : 1)')
+    					
+    return parser.parse_args()
+
 
 '''
 This is the Main Server where all URLs(requests) are added up
@@ -9,6 +22,7 @@ a callback queue is attached by which main server will get back
 the results from clients and a unique corelation id is also
 added to differentiate between different requests
 '''
+
 class RpcServer(object):
     # Initializing the connection and channel
     def __init__(self):
@@ -61,15 +75,8 @@ class MyThread(threading.Thread):
         rpc.call(self.time)
 	
 if __name__ == '__main__':
-    # Making request threads
-    th1 = MyThread(5)
-    th2 = MyThread(10)
-    th3 = MyThread(2)
-    th4 = MyThread(7)
-
-    # Starting threads
-    th1.start()
-    th2.start()
-    th3.start()
-    th4.start()
-    
+    # Parsing the arguments
+    args = parsing()
+	# Making request threads
+	for task in args.tasks:
+		MyThread(task).start()
