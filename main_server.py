@@ -9,7 +9,7 @@ def parsing():
     # Description of Command Line arguments
     parser = argparse.ArgumentParser(description='Takes Tasks to be Distributed among Thug Instances.')
     # Optional Argument for Tasks
-    parser.add_argument('tasks', metavar='T', default='1', type=int, nargs='*',
+    parser.add_argument('tasks', default='1', type=int, nargs='*',
     					help='Tasks to distribute (default value : 1)')
     					
     return parser.parse_args()
@@ -77,6 +77,6 @@ class MyThread(threading.Thread):
 if __name__ == '__main__':
     # Parsing the arguments
     args = parsing()
-	# Making request threads
-	for task in args.tasks:
-		MyThread(task).start()
+    # Making request threads
+    for task in args.tasks:
+		MyThread(int(task)).start()
