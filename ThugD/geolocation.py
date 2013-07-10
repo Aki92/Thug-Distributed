@@ -1,6 +1,6 @@
 import netifaces as nf
 import subprocess
-
+import urllib2
 """
 This Class is first finding both IP4 & IP6 addresses using "netifaces"
 library. Then it is finding the location of user by using the TEAM CYMRU
@@ -19,10 +19,8 @@ class FindLocation(object):
 		# Finding both IP4 & IP6 addresses
 		network_interfaces = nf.interfaces()
 		# Keeping only connections other than ethernet, wireless, localhost
-		network_interfaces = [n for n in network_interfaces if(not
-							  n.startswith('lo') and not n.startswith('eth') and
-							  not n.startswith('wlan'))
-							  ]
+		network_interfaces = [n for n in network_interfaces if not
+							  n.startswith('lo') and not n.startswith('eth')]
 		ip4 = ''
 		ip6 = ''
 		for network in network_interfaces:
@@ -38,6 +36,10 @@ class FindLocation(object):
 			except:
 				pass
 
+		# Finding IP address using "www.biranchi.com" site
+		if ip4 == '' and ip6 == '':
+			ip4 = urllib2.urlopen('http://www.biranchi.com/ip.php').read()
+			
 		self.ip4 = ip4
 		self.ip6 = ip6
 		return (self.ip4, self.ip6)
@@ -71,6 +73,7 @@ class FindLocation(object):
 		self.modify_ip6(self.ip6)
 		# Try-Except used because check_output raises error if command doesn't
 		# run successfully
+		country = ""
 		try:
 			if(self.ip4_req != ""):
 				dns = subprocess.check_output("dig +short %s.%s TXT" %
@@ -87,7 +90,7 @@ class FindLocation(object):
 				if dns != '':
 					country = dns.split(" | ")[2]
 		except:
-			country = ""
+			pass
 			
 		self.country = country
 		return self.country

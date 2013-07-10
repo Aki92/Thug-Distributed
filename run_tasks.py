@@ -14,5 +14,10 @@ res = group(thug.s(t) for t in xrange(10))().get()
 print(res)
 
 # Running 5 tasks in geolocation based queue & getting their results back
-res = group(thug.apply_async(args=(t,),queue=country).get() for t in xrange(5))
+res = group(thug.apply_async(args=(t,),queue='IN').get() for t in xrange(10))
 print(res)
+
+# Running 5 tasks in geolocation based queue & getting their results back
+res = group(thug.apply_async(args=(t,),queue='NL').get() for t in xrange(10))
+print(res)
+

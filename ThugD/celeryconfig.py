@@ -20,8 +20,8 @@ CELERY_TASK_RESULT_EXPIRES = None		#Never Expires(eg. 24*3600->1 day)
 CELERY_DEFAULT_QUEUE = 'generic'
 CELERY_DEFAULT_EXCHANGE = 'generic'
 CELERY_DEFAULT_EXCHANGE_TYPE = 'direct'
-CELERY_DEFAULT_BINDING = 'generic'
-CELERY_DEFAULT_ROUTING_KEY = 'task.generic'
+CELERY_DEFAULT_BINDING = 'gen.w1'
+CELERY_DEFAULT_ROUTING_KEY = 'gen.w1'
 CELERY_DEFAULT_DELIVERY_MODE = 'persistent'
 
 # Command to Make New Queues(CELERY_QUEUES is list of Queues Instances)
@@ -54,6 +54,9 @@ CELERYD_PREFETCH_MULTIPLIER = 1
 ## Concurrency Settings
 # No. of Concurrent worker processes/threads executing tasks
 CELERYD_CONCURRENCY = 2
+
+# Maximum no. of tasks per worker
+CELERYD_MAX_TASKS_PER_CHILD = 2
 
 ## Message Settings
 CELERY_MESSAGE_COMPRESSION = None
