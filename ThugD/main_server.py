@@ -12,28 +12,29 @@ thugd.config_from_object('ThugD.celeryconfig')
 
 # Making GeolocationQueueConfig class to update Queue settings
 class GeolocationQueueConfig(object):
-	def __init__(self):
-		obj  = geolocation.FindLocation()
-		self.country  = obj.find_country()
-		self.update_queue()
-	
-	def update_queue(self):
-		if(self.country != ''):
-			thugd.conf.CELERY_QUEUES = (Queue(self.country, 
-										Exchange('geolocation', type='direct',
-										durable=True),
-										binding='geolocation',
-										routing_key='task.geolocation',
-										durable=True),
-										
-										Queue('generic', 
-										Exchange('generic', type='direct',
-										durable=True),
-										binding='generic',
-										routing_key='task.generic',
-										durable=True),
-										)
+    def __init__(self):
+        obj  = geolocation.FindLocation()
+        self.country  = obj.find_country()
+        self.update_queue()
+    
+    def update_queue(self):
+        country = self.country
+        if(country != ''):
+            thugd.conf.CELERY_QUEUES = (Queue(country, 
+                                        Exchange('geo', type='direct',
+                                        durable=True),
+                                        binding='geo.%s'%country,
+                                        routing_key='geo.%s'%country,
+                                        durable=True),
+                                        
+                                        Queue('generic', 
+                                        Exchange('generic', type='direct',
+                                        durable=True),
+                                        binding='generic',
+                                        routing_key='generic',
+                                        durable=True),
+                                        )
 GeolocationQueueConfig()
 
 if __name__ == '__main__':
-	thugd.start()
+    thugd.start()
