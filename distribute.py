@@ -5,11 +5,13 @@ import redis
 from thread import *
 import time
 	
+results = []
+
 def call_task(url, hostname):
 	ans = thug.apply_async(args=(url,),queue='generic',exchange='generic',
 					 binding='gen.%s'%hostname,
-					 routing_key='gen.%s'%hostname).get()
-	print ans
+					 routing_key='gen.%s'%hostname)
+	results.append(ans)
 	                
 class Distribute(object):
 	def __init__(self, urls):
@@ -41,6 +43,7 @@ class Distribute(object):
 if __name__ == '__main__':
 	dis = Distribute([i for i in xrange(10)])
 	dis.distribute_tasks()
+	print [res.get() for res in results]
 			
 
 '''
