@@ -9,7 +9,7 @@ that tasks and give back the results to the Main Server.
 It is the Thug Worker which waits for Celery to distribute tasks to it, from 2 different types of queues:    
 * Generic Queue(named: "generic").   
 * Geolocation Based Queue(named: according to user country code).     
-Then it processes the assigned task and returns back the result which stores in "amqp" database and get displayed at task running end.
+Then it processes the assigned task and returns back the result which stores in "redis" backend.
 
 Folder: **ThugD**    
 Files:    
@@ -27,7 +27,7 @@ Tools/Libraries to install:
 1. `sudo apt-get install rabbitmq-server` : Works as Message Broker .      
 2. `sudo pip install -U celery` : Helps in distributing tasks among running workers.     
 3. `sudo pip install flower` : Helps in monitoring and managing remote workers.     
-4. `sudo pip install netifaces` : Helps in finding IP address of user.    
+4. `sudo pip install dnspython` : Helps in dns querying to Team Cymru service.    
 
 
 Usage:    
