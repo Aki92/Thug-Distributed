@@ -17,7 +17,7 @@ CELERY_TASK_RESULT_EXPIRES = None		#Never Expires(eg. 24*3600->1 day)
 
 ## Queue Configuration
 # Changing Default Settings
-CELERY_DEFAULT_QUEUE = 'generic'
+CELERY_DEFAULT_QUEUE = 'gen.w1'
 CELERY_DEFAULT_EXCHANGE = 'generic'
 CELERY_DEFAULT_EXCHANGE_TYPE = 'direct'
 CELERY_DEFAULT_BINDING = 'gen.w1'
@@ -29,19 +29,19 @@ CELERY_DEFAULT_DELIVERY_MODE = 'persistent'
 # defined above
 '''
 CELERY_QUEUES = (
-					Queue('generic', Exchange('generic', durable=True),
-					binding='generic',routing_key='task.generic', 
-					durable=True),
-				 )	
+                    Queue('generic', Exchange('generic', durable=True),
+                    binding='generic',routing_key='task.generic', 
+                    durable=True),
+                )	
 '''
 # Routing tasks to particular Queue
 '''
 CELERY_ROUTES = {'ThugD.thug_instances.thug' :
-					{'queue':'generic',
-					 'exchange':'generic',
-					 'routing_key':'task.generic'
-					},
-				 }
+                    {'queue':'generic',
+                    'exchange':'generic',
+                    'routing_key':'task.generic'
+                    },
+                }
 '''
 
 # ACKS_LATE means that tasks msgs will be acknowledged after task has been

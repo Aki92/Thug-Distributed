@@ -1,8 +1,8 @@
 import ThugD.geolocation as geolocation
 from ThugD.thug_instances import thug
 from celery import group
-import redis 
 from thread import *
+import redis 
 import time
     
 results = []
@@ -55,5 +55,3 @@ print(res)
 res = group(thug.apply_async(args=(t,),queue='NL').get() for t in xrange(10))
 print(res)
 '''
-            
-    

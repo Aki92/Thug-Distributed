@@ -5,6 +5,6 @@ import time
 # Making Thug Function to be called as task
 @thugd.task
 def thug(n):
-	time.sleep(n)
-	return "%d Job done" % n
-	
+    time.sleep(n)
+    return "%d Job done" % n
+    
