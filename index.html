@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>ThugD by Aki92</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>ThugD</h1>
+        <p>Distributed version of Thug Honeyclient</p>
+
+        <p class="view"><a href="https://github.com/Aki92/Thug-Distributed">View the Project on GitHub <small>Aki92/Thug-Distributed</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Aki92/Thug-Distributed/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Aki92/Thug-Distributed/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Aki92/Thug-Distributed">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><a href="https://github.com/Aki92/Thug-Distributed">ThugD</a> as the name suggests is the Distributed version of project <a href="http://buffer.github.io/thug/">Thug</a>.</p>
+
+<hr><p>It's an ongoing project of <em>Google Summer of Code</em>(GSoC) program, developed under The Honeynet Project Organization.</p>
+
+<p>Till now Thug was working as an stand-alone tool and does not provide any way to distribute URL analysis tasks to different workers. For the same reason it is neither able to analyze difference in attacks to users according to their geolocation (unless it is provided a set of differently geolocated proxies to use obviously). But now ThugD project is successful in solving both the problems.</p>
+
+<p>ThugD maintains a Centralized Server which feeds URLs into queues and clients running Thug Honeyclient connects to queues. Then as soon as URLs are fed into queues it automatically distributes URLs among clients and then returns back results to Server.</p>
+
+<p>Please refer to <a href="https://thug-distributed.readthedocs.org/en/latest">ThugD documentation</a></p>
+
+<hr><p>If you like the project, Starr it at Github.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Aki92">Aki92</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
