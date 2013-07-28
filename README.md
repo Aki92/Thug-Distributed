@@ -35,4 +35,7 @@ Usage:
    Open **http://localhost:5555/** in browser to access the tool.    
 2. `celery worker -A ThugD.main_server.thugd -l info -n w1` : Running Celery worker in foreground with **w1** as hostname. Multiple workers can be run using different hostnames.      
 3. `python run_tasks.py` : Running 3 types of tasks(specified in file) on worker.       
-4. `sudo rabbitmqctl list_queues` : List active queues. **(Optional)**        
+4. `sudo rabbitmqctl list_queues` : List active queues. **(Optional)**      
+
+
+Refer to [gh-pages](http://aki92.github.io/Thug-Distributed) for more information and documentation.
