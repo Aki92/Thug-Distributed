@@ -1,7 +1,7 @@
 from kombu import Exchange, Queue
 
 ## AMQP as Broker.
-BROKER_URL = 'amqp://'
+BROKER_URL = 'amqp://thug:thug@localhost:5672//'
 BROKER_CONNECTION_TIMEOUT = 4  # Default Value
 BROKER_CONNECTION_RETRY = True
 BROKER_CONNECTION_MAX_RETRIES = 100	# Default Value
@@ -12,17 +12,18 @@ BROKER_HEARTBEAT = 4
 # Rate
 BROKER_HEARTBEAT_CHECKRATE = 2
 
-## AMQP as database to store task state and results.
-CELERY_RESULT_BACKEND = 'redis://'
+## REDIS as backend to store task state and results.
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_RESULT_EXCHANGE = 'thugresults'
 CELERY_RESULT_EXCHANGE_TYPE = 'direct'
+
 # Msg will not be lost if broker restarts/shutdown
 CELERY_RESULT_PERSISTENT = True
+
 # Time after which task results would delete
 CELERY_TASK_RESULT_EXPIRES = None		#Never Expires(eg. 24*3600->1 day)
 
-## Queue Configuration
-# Changing Default Settings
+## Default Queue Configuration
 CELERY_DEFAULT_QUEUE = 'generic'
 CELERY_DEFAULT_EXCHANGE = 'generic'
 CELERY_DEFAULT_EXCHANGE_TYPE = 'direct'
@@ -30,32 +31,12 @@ CELERY_DEFAULT_BINDING = 'generic'
 CELERY_DEFAULT_ROUTING_KEY = 'generic'
 CELERY_DEFAULT_DELIVERY_MODE = 'persistent'
 
-# Command to Make New Queues(CELERY_QUEUES is list of Queues Instances)
-# and any property not defined would be taken from default settings 
-# defined above
-'''
-CELERY_QUEUES = (
-                    Queue('generic', Exchange('generic', durable=True),
-                    binding='generic',routing_key='task.generic', 
-                    durable=True),
-                )	
-'''
-# Routing tasks to particular Queue
-'''
-CELERY_ROUTES = {'ThugD.thug_instances.thug' :
-                    {'queue':'generic',
-                    'exchange':'generic',
-                    'routing_key':'task.generic'
-                    },
-                }
-'''
-
 # ACKS_LATE means that tasks msgs will be acknowledged after task has been
 # executed and then only it will be deleted from queue.
 CELERY_ACKS_LATE = True
 
-# Giving each worker only one task at a time
-#CELERYD_PREFETCH_MULTIPLIER = 2
+# Giving each worker only TWO task at a time
+CELERYD_PREFETCH_MULTIPLIER = 2
 
 ## Concurrency Settings
 # No. of Concurrent worker processes/threads executing tasks

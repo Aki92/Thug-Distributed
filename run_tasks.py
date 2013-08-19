@@ -1,27 +1,58 @@
-import ThugD.geolocation as geolocation
 from ThugD.thug_instances import thug
 from celery import group, subtask
+from json import dumps
+from copy import copy
+import args
 
-#Running single task & getting result back
-res = thug.delay(5).get()
-print(res)
+class Tasks(object):
+    """ Distributing Tasks on basis of arguments passed """
 
-#Running 10 tasks in default queue & getting their results back
-res = group(thug.subtask(args=(t,)) for t in xrange(20))
-print res().join()
+    def __init__(self, opts):
+        """ Initializing all required queues, urls and agents """
+        agt = opts.pop('include_agent')
+        quf = opts.pop('queue_file')
+        qu = opts.pop('queue')
+        uf = opts.pop('url_file')
+        ul = opts.pop('url')
+        self.queue = []
+        self.agent = []
+        self.task = []
+        self.url = []
+        self.opts = opts
 
-# Running 5 tasks in geolocation based queue & getting their results back
-res = group(thug.subtask(args=(t,), queue='IN') for t in xrange(10))
-print res().join()
+        if uf is None:
+            self.url.extend(ul)
+        else:
+            self.url.extend(uf)
 
-# Running 5 tasks in geolocation based queue & getting their results back
-res = group(thug.subtask(args=(t,),queue='NL') for t in xrange(10))
-print res().join()
+        if quf is None:
+            self.queue.extend(qu)
+        else:
+            self.queue.extend(quf)
 
-# Running 5 tasks in geolocation based queue & getting their results back
-res = group(thug.subtask(args=(t,),queue='IT') for t in xrange(10))
-print res().join()
+        if agt is None:
+            # Putting default agent
+            self.agent.append('winxpie60')
+        else:
+            self.agent.extend(agt)
 
-# Running 5 tasks in geolocation based queue & getting their results back
-res = group(thug.subtask(args=(t,),queue='US') for t in xrange(10))
-print res().join()
+    def allocate_tasks(self):
+        """ Allocating tasks to queues according to passed arguments """
+        for ul in self.url:
+            for qu in self.queue:
+                for ag in self.agent:
+                    opts = copy(self.opts)
+                    opts['useragent'] = ag
+                    self.task.append(thug.apply_async(args=(ul,dumps(opts),),
+                                                      queue=qu))
+    def get_results(self):
+        """ Getting results of all allocate tasks """
+        for t in self.task:
+            print t.get()
+
+if __name__ == '__main__':
+    # Parsing command line arguments
+    opts = vars(args.parsing())
+    ta = Tasks(opts)
+    ta.allocate_tasks()
+    ta.get_results()

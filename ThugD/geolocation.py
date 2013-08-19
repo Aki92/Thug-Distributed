@@ -61,8 +61,8 @@ class FindLocation(object):
         self.ip6_req = ip6
     
     def dns_query(self):
-        """ Querying Team Cymru IP to ASN mapping Service """
         country = ''
+        """ Querying Team Cymru IP to ASN mapping Service """
         try:
             obj = None
             if(self.ip4_req != ""):
