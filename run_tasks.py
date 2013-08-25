@@ -26,10 +26,12 @@ class Tasks(object):
             self.url.extend(uf)
 
         if quf is None:
-            self.queue.extend(qu)
+            if type(qu) is str:
+                self.queue.append(qu)
+            else:
+                self.queue.extend(qu)
         else:
             self.queue.extend(quf)
-
         if agt is None:
             # Putting default agent
             self.agent.append('winxpie60')
