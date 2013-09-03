@@ -1,7 +1,7 @@
 from kombu import Exchange, Queue
 
 ## AMQP as Broker.
-BROKER_URL = 'amqp://thug:thug@localhost:5672//'
+BROKER_URL = 'amqp://'
 BROKER_CONNECTION_TIMEOUT = 4  # Default Value
 BROKER_CONNECTION_RETRY = True
 BROKER_CONNECTION_MAX_RETRIES = 100	# Default Value
@@ -13,7 +13,7 @@ BROKER_HEARTBEAT = 4
 BROKER_HEARTBEAT_CHECKRATE = 2
 
 ## REDIS as backend to store task state and results.
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://'
 CELERY_RESULT_EXCHANGE = 'thugresults'
 CELERY_RESULT_EXCHANGE_TYPE = 'direct'
 
