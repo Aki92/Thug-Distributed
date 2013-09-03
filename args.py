@@ -50,8 +50,8 @@ Android 4.0.3)
     linuxchrome26           Chrome 26.0.1410.19     (Linux)
     linuxfirefox19          Firefox 19.0            (Linux)
     '''
-    
-    # Description of Command Line arguments    
+
+    # Description of Command Line arguments
     parser = argparse.ArgumentParser(description='Distributed Pure Python \
 Honeyclient Implementation',
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -69,7 +69,7 @@ Honeyclient Implementation',
             except:
                 raise argparse.ArgumentTypeError("%s doesn't exist"%url)
         return urls
-        
+
     def link_file(fn):
         fobj = open(fn, 'r')
         url = fobj.readline().strip()
@@ -233,4 +233,3 @@ if __name__ == "__main__":
     # Parsing the Command Line Arguments
     args = parsing()
     print vars(args)
-    
