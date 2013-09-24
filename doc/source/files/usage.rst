@@ -86,43 +86,52 @@ Options provided by ThugD
             linuxfirefox19          Firefox 19.0            (Linux)
 
 
-1. Single URL with Default Queue(generic)
+Different Methods of Distributing URL's among workers:
+******************************************************
+
+* **Distributing Single URL with Default Queue (generic)**: By it a single URL will be put up in the *generic* queue, from which worker can fetch the URL and after processing it will return back the results to server.
 
 .. code-block:: sh
         
 		~/thugd/src$ python run_tasks.py -U http://www.google.com
 		
-2. Single URL with Single Specified Queue(India)
+
+* **Single URL with Single Specified Queue(India)**: In it a single URL will be put up in the Specified Queue i.e. *India* (geolocation based queue) and not in generic queue. Then whenever a worker from country India connects it will automatically fetch the URL from it and do further processing on it.
 
 .. code-block:: sh
         
 		~/thugd/src$ python run_tasks.py -qu IN -U http://www.google.com
 
-3. Single URL with Multiple Specified Queues(India, Italy, China, US)
+
+* **Single URL with Multiple Specified Queues(India, Italy, China, US)**: In it a single URL will be putted up in multiple specified queues. Therefore a copy of a single URL will be put up in multiple queues and whenever workers corresponding to that queues will be attached they will process the URLs and return back the results.
 
 .. code-block:: sh
         
 		~/thugd/src$ python run_tasks.py -qu IN IT CN US -U http://www.google.com
 
-4. Multiple URL's(Google, Twitter, Mozilla) with Single Specified Queue(India)
+
+* **Multiple URL's(Google, Twitter, Mozilla) with Single Specified Queue(India)**: This is a simple case where multiple URL's are put up in a single specified queue like India in this case. So whenever workers corresponding to India will connect URLs will get processed by them.
 
 .. code-block:: sh
         
 		~/thugd/src$ python run_tasks.py -qu IN -U http://www.google.com http://www.twitter.com http://www.mozilla.com
 		
-5. Multiple URL's(Google, Twitter, Mozilla) with Multiple Specified Queues(India, Italy, China, US)
+
+* **Multiple URL's(Google, Twitter, Mozilla) with Multiple Specified Queues(India, Italy, China, US)**: This is the advanced distribution as here multiple URL's will be distributed among all the specified queues. Therefore according to this case Google, Twitter, Mozilla URL will be put up in all India, Italy, China, US queues.
 
 .. code-block:: sh
         
 		~/thugd/src$ python run_tasks.py -qu IN IT CN US -U http://www.google.com http://www.twitter.com http://www.mozilla.com
 
-6. Multiple URL's from file(urls.txt) with Multiple Specified Queues from file(queues.txt)
+
+* **Multiple URL's from file(urls.txt) with Multiple Specified Queues from file(queues.txt)**:  This feature was added for reducing pain of specifying all URL's and queues manually. By this URL's and queues name would be fetched from the files specified and then every URL will be put up in every queue present in the file.
 
 .. code-block:: sh
         
 		~/thugd/src$ python run_tasks.py -qf queues.txt -uf urls.txt
 
-7. Running Thug with following prioritized Agents: Multiple URL's from file(urls.txt) with Multiple Specified Queues from file(queues.txt)
+
+* **Running Thug with following prioritized Agents: Multiple URL's from file(urls.txt) with Multiple Specified Queues from file(queues.txt)**: In it every URL will be put up in every Queue with all the agent's specified below one at a time, so that we can check the difference in attacks to different browsers. Therefore for a single URL 18 URL's will be added to a queue because there are 18 different agents specified.
 
 .. code-block:: sh
         
@@ -172,6 +181,10 @@ Checking Active Queues
 Worker
 ######
 
+Workers are runned to help the **Thug** project to analyze the attacks on Clients. Please run the workers on your system as Server is running up there in US, so that we can analyze the attacks on clients and can secure users from these attacks.
+
+Its a contribution to the **Thug** Project, so be the part of the Thug Project by running worker on your system.
+
 Move inside the **src** folder of thugd
 
 **Single Worker**
@@ -185,6 +198,3 @@ Move inside the **src** folder of thugd
 .. code-block:: sh
 
 		~/thugd/src$ celery multi start w1 w2 w3 -A ThugD.main_server.thugd -l info
-		
-		
-
