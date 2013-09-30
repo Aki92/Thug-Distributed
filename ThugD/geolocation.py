@@ -25,15 +25,15 @@ class FindLocation(object):
             content = urlopen(site).read()
             ip = str(json.loads(content)['YourFuckingIPAddress'])
         except:
-            print '** Please Check your Internet Connection and URL provided **'
-        
+            print '**Please Check your Internet Connection and URL provided**'
+
         # Checking if returned ip address is IP4 or IP6
         if ip != '':
             if ip.count('.') == 3:
                 self.ip4 = ip
             else:
                 self.ip6 = ip
-                
+
         return (self.ip4, self.ip6)
 
     def modify_ip4(self, ip4):
@@ -43,7 +43,7 @@ class FindLocation(object):
             ip4_addresses = ip4.split(".")
             ip4_addresses.reverse()
             ip4 = ".".join(ip4_addresses)
-            
+
         self.ip4_req = ip4
 
     def modify_ip6(self, ip6):
@@ -59,28 +59,28 @@ class FindLocation(object):
             ip6 = ".".join(list(ip6_addresses))
 
         self.ip6_req = ip6
-    
+
     def dns_query(self):
         country = ''
         """ Querying Team Cymru IP to ASN mapping Service """
         try:
             obj = None
             if(self.ip4_req != ""):
-                obj = dns.resolver.query("dig +short %s.%s" % 
-                                            (self.ip4_req, self.ip4_server), 
-                                            'TXT')
+                obj = dns.resolver.query("dig +short %s.%s" %
+                                        (self.ip4_req, self.ip4_server),
+                                        'TXT')
             elif(self.ip6_req != ""):
-                obj = dns.resolver.query("dig +short %s.%s" % 
-                                            (self.ip6_req, self.ip6_server),
-                                            'TXT')
+                obj = dns.resolver.query("dig +short %s.%s" %
+                                        (self.ip6_req, self.ip6_server),
+                                        'TXT')
             # Traversing the dns object
-            if obj is not None:             
+            if obj is not None:
                 for info in obj:
                     if info != '':
                         country = str(info).split(" | ")[2]
         except:
             pass
-                
+
         self.country = country
 
     def find_country(self):
@@ -90,8 +90,8 @@ class FindLocation(object):
         self.modify_ip6(self.ip6)
         self.dns_query()
         return self.country
-        
-        
+
+
 if __name__ == '__main__':
     loc = FindLocation()
     print loc.find_country()
