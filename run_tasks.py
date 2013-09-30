@@ -6,7 +6,6 @@ import args
 
 class Tasks(object):
     """ Distributing Tasks on basis of arguments passed """
-
     def __init__(self, opts):
         """ Initializing all required queues, urls and agents """
         agt = opts.pop('include_agent')
