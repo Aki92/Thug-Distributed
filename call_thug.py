@@ -90,6 +90,12 @@ class Thug(ThugAPI):
         if options['jsclassifier']:
             for classifier in options['jsclassifier'].split(','):
                 self.add_jsclassifier(os.path.abspath(classifier))
+        if options['json_logging']:
+            self.set_json_logging()
+        if options['file_logging']:
+            self.set_file_logging()
+        if options['vtquery']:
+            self.set_vt_query()
 
         self.log_init(self.args)
 
