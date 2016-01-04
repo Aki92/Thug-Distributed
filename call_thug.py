@@ -27,11 +27,12 @@ from Plugins.ThugPlugins import *
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
 
+configuration_path = "/etc/thug"
 
 class Thug(ThugAPI):
     def __init__(self, url):
         # args(url) not used in ThugAPI code so just passed URL
-        ThugAPI.__init__(self, url)
+        ThugAPI.__init__(self, url, configuration_path)
 
     def analyze(self, opts):
         p = getattr(self, 'run_remote', None)
