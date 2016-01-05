@@ -188,6 +188,15 @@ debug mode)')
     thug.add_argument('-T', '--timeout',
                         metavar='',
                         help='Timeout in minutes')
+    thug.add_argument('-Z', '--json-logging',
+                        action='store_true',
+                        help='Enable JSON logging mode')
+    thug.add_argument('-F', '--file-logging',
+                        action='store_true',
+                        help='Enable file logging mode')
+    thug.add_argument('-y', '--vtquery',
+                        action='store_true',
+                        help='Query VirusTotal for samples analysis')
 
     # Plugins
     plugin = parser.add_argument_group('Plugins')
